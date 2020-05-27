@@ -26,6 +26,7 @@ import { FieldControlMetaService } from './field-control-meta.service';
 import { Observable } from 'rxjs/Observable';
 import * as _ from "lodash";
 import { ConfigService } from '../config-service';
+import { of } from 'rxjs/observable/of';
 declare var io: any;
 /**
  * Plan Client-side services
@@ -53,7 +54,7 @@ export class RecordsService extends BaseService {
     return this.getFormFieldsMeta(recordType, editable, oid, formName).then((form:any) => {
       return this.fcmetaService.getLookupData(form.fieldsMeta).flatMap((fields:any) => {
         form.fieldsMata = fields;
-        return Observable.of(form);
+        return of(form);
       });
     });
   }

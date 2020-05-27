@@ -28,6 +28,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/zip';
 import * as _ from "lodash";
 import { TranslationService } from './shared/translation-service';
+import { of } from 'rxjs/observable/of';
 
 // STEST-22
 declare var jQuery: any;
@@ -39,7 +40,6 @@ declare var jQuery: any;
  *
  */
 @Component({
-  moduleId: module.id,
   selector: 'dmp-form',
   templateUrl: './dmp-form.html',
   providers: [Location, {provide: LocationStrategy, useClass: PathLocationStrategy}]
@@ -216,7 +216,7 @@ export class DmpFormComponent extends LoadableComponent {
   onSubmit(targetStep:string = null, forceValidate:boolean=false, additionalData: any = null) {
     this.onBeforeSave.emit({oid: this.oid});
     if (!this.isValid(forceValidate)) {
-      return Observable.of(false);
+      return of(false);
     }
     this.setSaving(this.getMessage(this.formDef.messages.saving));
     let values = this.formatValues(this.form.value);
@@ -237,14 +237,14 @@ export class DmpFormComponent extends LoadableComponent {
           this.recordCreated.emit({oid: this.oid});
           this.LocationService.go(`record/edit/${this.oid}`);
           this.setSuccess(this.getMessage(this.formDef.messages.saveSuccess));
-          return Observable.of(true);
+          return of(true);
         } else {
           this.setError(`${this.getMessage(this.formDef.messages.saveError)} ${res.message}`);
-          return Observable.of(false);
+          return of(false);
         }
       }).catch((err:any)=>{
         this.setError(`${this.getMessage(this.formDef.messages.saveError)} ${err.message}`);
-        return Observable.of(false);
+        return of(false);
       });
     } else {
       return this.RecordsService.update(this.oid, this.payLoad, targetStep).flatMap((res:any)=>{
@@ -254,16 +254,16 @@ export class DmpFormComponent extends LoadableComponent {
         if (res.success) {
           this.recordSaved.emit({oid: this.oid, success:true});
           this.setSuccess(this.getMessage(this.formDef.messages.saveSuccess));
-          return Observable.of(true);
+          return of(true);
         } else {
           this.recordSaved.emit({oid: this.oid, success:false});
           this.setError(`${this.getMessage(this.formDef.messages.saveError)} ${res.message}`);
-          return Observable.of(false);
+          return of(false);
         }
       }).catch((err:any)=>{
         this.recordSaved.emit({oid: this.oid, success:false});
         this.setError(`${this.getMessage(this.formDef.messages.saveError)} ${err}`);
-        return Observable.of(false);
+        return of(false);
       });
     }
   }
@@ -277,14 +277,14 @@ export class DmpFormComponent extends LoadableComponent {
       console.log(res);
       if (res.success) {
         this.setSuccess(this.getMessage(this.formDef.messages.saveSuccess));
-        return Observable.of(true);
+        return of(true);
       } else {
         this.setError(`${this.getMessage(this.formDef.messages.saveError)} ${res.message}`);
-        return Observable.of(false);
+        return of(false);
       }
     }).catch((err:any)=>{
       this.setError(`${this.getMessage(this.formDef.messages.saveError)} ${err}`);
-      return Observable.of(false);
+      return of(false);
     });
   }
 

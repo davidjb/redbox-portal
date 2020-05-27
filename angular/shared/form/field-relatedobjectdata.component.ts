@@ -26,6 +26,8 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/zip';
 import { fromPromise } from 'rxjs/observable/fromPromise';
 import {DomSanitizer} from '@angular/platform-browser';
+import { of } from 'rxjs/observable/of';
+import { zip } from 'rxjs/operators';
 
 
 
@@ -64,11 +66,12 @@ export class RelatedObjectDataField extends FieldBase<any> {
 /**
 * Loading the metadata for each related object in the array
 */
-  asyncLoadData() {
+  asyncLoadData():any {
     let getRecordMetaObs = [];
     var that = this;
     _.forEach(this.value, (item: any) => {
-      getRecordMetaObs.push(fromPromise(this.recordsService.getRecordMeta(item.id)).flatMap(meta => {
+      getRecordMetaObs.push(fromPromise(this.recordsService.getRecordMeta(item.id)).flatMap(metadata => {
+        let meta:any = metadata
         if (!meta) {
           that.failedObjects.push(meta);
         } else if (meta['status'] == "Access Denied") {
@@ -78,13 +81,13 @@ export class RelatedObjectDataField extends FieldBase<any> {
         } else {
           that.failedObjects.push(meta);
         }
-        return Observable.of(null);
+        return of(null);
       }));
     });
     if ( getRecordMetaObs.length > 0 ) {
-      return Observable.zip(...getRecordMetaObs);
+      return zip(...getRecordMetaObs);
     } else {
-      return Observable.of(null);
+      return of(null);
     }
   }
 
@@ -132,7 +135,7 @@ if (typeof aotMode == 'undefined') {
   templateUrl: './field-relatedobjectdata.html'
 })
 export class RelatedObjectDataComponent extends SimpleComponent {
-  field: RelatedObjectDataField;
+  field: any;
 
   constructor(private sanitizer: DomSanitizer) {
     super();

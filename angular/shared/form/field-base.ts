@@ -24,6 +24,7 @@ import {UtilityService} from '../util-service';
 import {Observable} from 'rxjs/Observable';
 
 import * as _ from "lodash";
+import { of } from 'rxjs/observable/of';
 
 /**
  * Base class for dynamic form models...
@@ -495,6 +496,6 @@ export class FieldBase<T> {
 
   //Default asyncLoadData function. No async load required so return empty Observable.
   asyncLoadData() {
-    return Observable.of(null);
+    return of(null);
   }
 }

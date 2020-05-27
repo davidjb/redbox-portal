@@ -10,6 +10,7 @@ import { TranslationService } from '../translation-service';
 import { UtilityService } from '../util-service';
 import { BaseService } from '../base-service';
 import { Http } from '@angular/http';
+import { of } from 'rxjs/observable/of';
 
 @Injectable()
 export class FieldControlMetaService extends BaseService {
@@ -84,15 +85,15 @@ export class FieldControlMetaService extends BaseService {
         // f.lookupService = this[lookupServiceName];
         return serviceInst.getLookupData(f);
       } else {
-        return Observable.of(null);
+        return of(null);
       }
     })
     .flatMap((field:any) => {
-      return Observable.of(field);
+      return of(field);
     })
     .last()
     .flatMap((whatever:any) => {
-      return Observable.of(fields);
+      return of(fields);
     });
   }
 

@@ -27,11 +27,14 @@ import { Subject } from "rxjs/Subject";
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map'
+import { map } from 'rxjs/operators';
+
 import { Http } from '@angular/http';
 import { BaseService } from '../base-service';
 import { CompleterService, CompleterData, CompleterItem } from 'ng2-completer';
 import { ConfigService } from '../config-service';
 import * as luceneEscapeQuery from "lucene-escape-query";
+import { of } from 'rxjs/observable/of';
 /**
  * Vocabulary Field
  *
@@ -290,7 +293,8 @@ class ExternalLookupDataService extends Subject<CompleterItem[]> implements Comp
 
     public search(term: string): void {
 
-      this.http.post(this.url,{options:{query: term}}).map((res: any, index: number) => {
+      this.http.post(this.url,{options:{query: term}}).pipe( 
+        map((res: any, index: number) => {
         // Convert the result to CompleterItem[]
         let data = res.json();
         let itemArray = _.get(data, this.arrayProperty);
@@ -300,7 +304,7 @@ class ExternalLookupDataService extends Subject<CompleterItem[]> implements Comp
         })
 
         this.next(matches);
-      }).subscribe();
+      })).subscribe();
     }
 
     public cancel() {
@@ -369,12 +373,12 @@ class MintLookupDataService extends Subject<CompleterItem[]> implements Complete
       });
     }
     const searchUrl = `${this.url}${searchString}&unflatten=${this.unflattenFlag}`;
-    this.http.get(`${searchUrl}`).map((res: any, index: number) => {
+    this.http.get(`${searchUrl}`).pipe(map((res: any, index: number) => {
       // Convert the result to CompleterItem[]
       let data = res.json();
       let matches: CompleterItem[] = _.map(data, (mintDataItem: any) => { return this.convertToItem(mintDataItem); });
       this.next(matches);
-    }).subscribe();
+    })).subscribe();
   }
 
   public cancel() {
@@ -467,11 +471,11 @@ export class VocabFieldLookupService extends BaseService {
           const data = this.extractData(res);
           field.sourceData = data;
           field.postInit(field.value);
-          return Observable.of(field);
+          return of(field);
         });
     }
     field.postInit(field.value);
-    return Observable.of(field);
+    return of(field);
   }
 
   getCollectionRootUrl(collectionId: string) {

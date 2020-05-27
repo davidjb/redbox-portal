@@ -26,6 +26,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/zip';
 import { fromPromise } from 'rxjs/observable/fromPromise';
 import {DomSanitizer} from '@angular/platform-browser';
+import { of } from 'rxjs/observable/of';
 
 
 
@@ -63,11 +64,11 @@ export class RecordPermissionsField extends FieldBase<any> {
     var that = this;
 
     if(oid == null || oid == "") {
-      return Observable.of(null);
+      return of(null);
      } else {
       return fromPromise(this.recordsService.getPermissions(oid)).flatMap(permissions => {
         that.permissions = permissions;
-       return Observable.of(permissions);
+       return of(permissions);
       });
       
     }

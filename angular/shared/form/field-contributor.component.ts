@@ -24,6 +24,8 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import * as _ from "lodash";
 import { VocabField } from './field-vocab.component';
 import { Observable} from 'rxjs/Rx';
+import { of } from 'rxjs/observable/of';
+import { flatMap } from 'rxjs/operators';
 /**
  * Contributor Model
  *
@@ -346,10 +348,11 @@ export class ContributorField extends FieldBase<any> {
     const familyNameCompleter = this.findRelationship['familyName'] || '';
 
     this.vocabField.relationshipLookup(relatedWith, searchFieldLower, searchField)
-    .flatMap(res => {
+    .pipe(flatMap(resp=> {
+      let res:any = resp;
       let rel = null;
       if(res && res['status'] === 200){
-        const data = res.json();
+        const data:any = res.json();
         if(!_.isEmpty(data) && !data['error']) {
           const obj = _.first(data);
           if(_.isArray(obj[relationship])) {
@@ -360,9 +363,9 @@ export class ContributorField extends FieldBase<any> {
       if(rel) {
         return this.vocabField.relationshipLookup(rel, searchRelationLower, searchRelation);
       } else {
-        return Observable.of(null);
+        return of(null);
       }
-    })
+    }))
     .subscribe(res => {
       if(res && res['status'] === 200) {
         const data = res.json();
