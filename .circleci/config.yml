@@ -10,6 +10,7 @@ jobs:
       - run: node_modules/.bin/tsc
       - run: (cd angular && npm install)
       - run: chmod +x dev_build/buildNgApps.sh && dev_build/buildNgApps.sh
+      - run: chmod +x dockerhub_deploy && ./dockerhub_deploy.sh
 orbs:
   node: circleci/node@4.0.0
 version: 2.1
