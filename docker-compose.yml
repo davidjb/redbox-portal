@@ -8,7 +8,7 @@ services:
     ports:
        - "1500:1500"
     volumes:
-       - ".:/opt/redbox-portal"
+       # - ".:/opt/redbox-portal"
        - "/mnt/data/attachments:/attachments"
        - "/mnt/data/publication:/publication"
        - "/opt/hooks:/opt/hooks"

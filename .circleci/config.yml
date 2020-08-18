@@ -1,7 +1,9 @@
-version: 2.1
-orbs:
-  node: circleci/node@3.0.0
-workflows:
-  node-tests:
-    jobs:
-      - node/test
+version: 2
+jobs:
+ build:
+   machine: true
+   steps:
+     - checkout
+     - npm install
+     - node_modules/.bin/tsc
+     - cd angular && npm install

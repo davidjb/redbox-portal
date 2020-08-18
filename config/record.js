@@ -66,5 +66,6 @@ module.exports.record = {
     stageDir: '/attachments/staging',
     path: '/attach'
   },
-  helpEmail: 'support@redboxresearchdata.com.au'
+  helpEmail: 'support@redboxresearchdata.com.au',
+  datastreamService: 'crateitservice'
 };
