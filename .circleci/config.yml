@@ -1,12 +1,18 @@
-version: 2
+jobs:
+  build:
+    docker:
+      - image: 'cimg/base:stable'
+    steps:
+      - checkout
+      - node/install:
+          install-yarn: true
+      - run: npm install
+      - run: node_modules/.bin/tsc
+      - run: cd angular && npm install
 orbs:
   node: circleci/node@4.0.0
-jobs:
- build:
-   machine: true
-   steps:
-     - checkout
-     - node/install
-     - npm install
-     - node_modules/.bin/tsc
-     - cd angular && npm install
+version: 2.1
+workflows:
+  test_my_app:
+    jobs:
+      - build
