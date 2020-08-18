@@ -6,6 +6,7 @@ jobs:
       - checkout
       - node/install:
           node-version: 12.16.0
+      - docker/install-docker-tools
       - run: npm install
       - run: node_modules/.bin/tsc
       - run: (cd angular && npm install)
@@ -13,6 +14,7 @@ jobs:
       - run: (chmod +x dockerhub_deploy.sh && ./dockerhub_deploy.sh)
 orbs:
   node: circleci/node@4.0.0
+  docker: circleci/docker@1.4.0
 version: 2.1
 workflows:
   test_my_app:
