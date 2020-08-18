@@ -6,7 +6,7 @@ ng2apps=( `find angular -maxdepth 1 -mindepth 1 -type d -printf '%f '` )
       if [ "$ng2app" != "e2e" ]; then
         if [ "$ng2app" != "node_modules" ]; then
           echo "Bundling ${ng2app}"
-          bundleNg2App $ng2app
+          (cd angular && ng build --app=${ng2app} --prod --build-optimizer --output-hashing=none --extract-css true)
         fi
       fi
     fi
