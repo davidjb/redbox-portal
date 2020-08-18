@@ -6,6 +6,7 @@ jobs:
    machine: true
    steps:
      - checkout
+     - node/install
      - npm install
      - node_modules/.bin/tsc
      - cd angular && npm install
