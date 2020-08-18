@@ -1,4 +1,6 @@
 version: 2
+orbs:
+  node: circleci/node@4.0.0
 jobs:
  build:
    machine: true
