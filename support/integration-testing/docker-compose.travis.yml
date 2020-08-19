@@ -3,11 +3,11 @@ networks:
   main:
 services:
   redboxportal:
-    image: qcifengineering/redbox-portal:latest
+    image: inttest
     ports:
        - "1500:1500"
-    volumes:
-       - ".:/opt/redbox-portal"
+    # volumes:
+    #    - ".:/opt/redbox-portal"
     expose:
        - "1500"
     environment:
