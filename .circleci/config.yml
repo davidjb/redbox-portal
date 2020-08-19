@@ -11,9 +11,9 @@ jobs:
       - run: (cd angular && npm install)
       - run: (chmod +x dev_build/buildNgApps.sh && dev_build/buildNgApps.sh)
       - run: mkdir -p /tmp/workspace/rbportal && cp -rf * /tmp/workspace/rbportal
-      - persist_to_workspace:
-        root: /tmp/workspace
-        paths: rbportal
+      # - persist_to_workspace:
+      #   root: /tmp/workspace
+      #   paths: rbportal
   # test:
   #   docker:
   #     - image: 'cimg/base:stable'
