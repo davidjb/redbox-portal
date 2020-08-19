@@ -20,8 +20,7 @@ jobs:
       - docker/install-docker-compose
       - attach_workspace:
            at: /home/circleci/project
-      - node/install:
-          node-version: 12.16.0
+      - run: nvm install 12.16.0 && nvm use 12.16.0
       - run: node_modules/.bin/tsc -p tsconfig-codecov.json
       - run: docker build -t inttest .
       - run: (cd support/integration-testing && chmod +x triggerIntegrationTests.sh && ./triggerIntegrationTests.sh)
@@ -40,8 +39,7 @@ jobs:
     steps:
       - attach_workspace:
             at: /home/circleci/project
-      - node/install:
-          node-version: 12.16.0
+      - run: nvm install 12.16.0 && nvm use 12.16.0
       - docker/install-docker-compose
       - run: npm run doc-ng2
 orbs:
