@@ -24,8 +24,7 @@ jobs:
       - docker/install-docker-compose
       - run: cd /tmp/workspace/rbportal
       - run: node_modules/.bin/tsc -p tsconfig-codecov.json
-      - run: (cd support/integration-testing && chmod +x triggerIntegrationTests.sh &&
-        ./triggerIntegrationTests.sh)
+      - run: (cd support/integration-testing && chmod +x triggerIntegrationTests.sh && ./triggerIntegrationTests.sh)
       - run: node_modules/.bin/tsc
   deploy:
     docker:
