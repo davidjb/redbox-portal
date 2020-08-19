@@ -20,7 +20,7 @@ jobs:
     steps:
       - docker/install-docker-compose
       - attach_workspace:
-           at: /tmp/rbportal
+           at: /home/circleci/project
       - run: cd /tmp/rbportal
       - run: pwd && ls
       - run: node_modules/.bin/tsc -p tsconfig-codecov.json
