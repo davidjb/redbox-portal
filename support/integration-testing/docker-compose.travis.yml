@@ -7,7 +7,7 @@ services:
     ports:
        - "1500:1500"
     volumes:
-       - "../../:/opt/redbox-portal"
+       - ".:/opt/redbox-portal"
     expose:
        - "1500"
     environment:
