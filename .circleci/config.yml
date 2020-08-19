@@ -15,8 +15,7 @@ jobs:
           paths:
             - .
   test:
-    docker:
-      - image: 'cimg/base:stable'
+    machine: true
     steps:
       - setup_remote_docker
       - docker/install-docker-compose
@@ -39,8 +38,7 @@ jobs:
       - docker/install-docker-compose
       - run: (chmod +x dockerhub_deploy.sh && ./dockerhub_deploy.sh)
   generate-docs:
-    docker:
-      - image: 'cimg/base:stable'
+    machine: true
     steps:
       - setup_remote_docker
       - attach_workspace:
