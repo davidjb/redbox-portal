@@ -6,15 +6,36 @@ jobs:
       - checkout
       - node/install:
           node-version: 12.16.0
-      - setup_remote_docker
       - run: npm install
       - run: node_modules/.bin/tsc
       - run: (cd angular && npm install)
       - run: (chmod +x dev_build/buildNgApps.sh && dev_build/buildNgApps.sh)
+      - persist_to_workspace:
+        root: .
+        # Must be relative path from root
+        paths:
+          - echo-output
+  test:
+    docker:
+      - image: 'cimg/base:stable'
+    steps:
+      - attach_workspace:
+        at: /tmp/workspace
+      - docker/install-docker-compose
+      - run: cd /tmp/workspace
+      - run: node_modules/.bin/tsc -p tsconfig-codecov.json
+      - run: (cd support/integration-testing && chmod +x triggerIntegrationTests.sh &&
+        ./triggerIntegrationTests.sh)
+      - run: node_modules/.bin/tsc
   deploy:
     docker:
       - image: 'cimg/base:stable'
     steps:
+      - setup_remote_docker
+      - attach_workspace:
+        at: /tmp/workspace
+      - docker/install-docker-compose
+      - run: cd /tmp/workspace
       - run: (chmod +x dockerhub_deploy.sh && ./dockerhub_deploy.sh)
 orbs:
   node: circleci/node@4.0.0
@@ -24,6 +45,9 @@ workflows:
   build_test_and_deploy:
     jobs:
       - build
-      - deploy:
+      - test:
           requires:
             - build
+      - deploy:
+          requires:
+            - test
