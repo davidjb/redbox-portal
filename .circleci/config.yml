@@ -9,7 +9,7 @@ jobs:
       - run: npm install
       - run: node_modules/.bin/tsc
       - run: (cd angular && npm install)
-      - run: (chmod +x dev_build/buildNgApps.sh && dev_build/buildNgApps.sh)
+      # - run: (chmod +x dev_build/buildNgApps.sh && dev_build/buildNgApps.sh)
       - run: mkdir -p /tmp/workspace/rbportal && cp -rf * /tmp/workspace/rbportal
       - persist_to_workspace:
           root: .
@@ -22,7 +22,7 @@ jobs:
       - docker/install-docker-compose
       - attach_workspace:
            at: ~/
-      - run: cd /tmp/workspace/rbportal
+      # - run: cd /tmp/workspace/rbportal
       - run: node_modules/.bin/tsc -p tsconfig-codecov.json
       - run: (cd support/integration-testing && chmod +x triggerIntegrationTests.sh && ./triggerIntegrationTests.sh)
       - run: node_modules/.bin/tsc
@@ -34,7 +34,7 @@ jobs:
       - attach_workspace:
             at: ~/
       - docker/install-docker-compose
-      - run: cd /tmp/workspace/rbportal
+      # - run: cd /tmp/workspace/rbportal
       - run: (chmod +x dockerhub_deploy.sh && ./dockerhub_deploy.sh)
 orbs:
   node: circleci/node@4.0.0
