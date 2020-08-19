@@ -12,15 +12,16 @@ jobs:
       - run: (chmod +x dev_build/buildNgApps.sh && dev_build/buildNgApps.sh)
       - run: mkdir -p /tmp/workspace/rbportal && cp -rf * /tmp/workspace/rbportal
       - persist_to_workspace:
-          root: /tmp/workspace
-          path: rbportal
+          root: /root
+          paths:
+            - project
   test:
     docker:
       - image: 'cimg/base:stable'
     steps:
       - docker/install-docker-compose
       - attach_workspace:
-           at: /tmp/workspace
+           at: ~/
       - run: cd /tmp/workspace/rbportal
       - run: node_modules/.bin/tsc -p tsconfig-codecov.json
       - run: (cd support/integration-testing && chmod +x triggerIntegrationTests.sh && ./triggerIntegrationTests.sh)
@@ -31,7 +32,7 @@ jobs:
     steps:
       - setup_remote_docker
       - attach_workspace:
-            at: /tmp/workspace
+            at: ~/
       - docker/install-docker-compose
       - run: cd /tmp/workspace/rbportal
       - run: (chmod +x dockerhub_deploy.sh && ./dockerhub_deploy.sh)
