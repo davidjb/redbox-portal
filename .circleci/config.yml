@@ -9,7 +9,7 @@ jobs:
       - run: npm install
       - run: node_modules/.bin/tsc
       - run: (cd angular && npm install)
-      # - run: (chmod +x dev_build/buildNgApps.sh && dev_build/buildNgApps.sh)
+      - run: (chmod +x dev_build/buildNgApps.sh && dev_build/buildNgApps.sh)
       - persist_to_workspace:
           root: .
           paths:
@@ -27,7 +27,7 @@ jobs:
       - run: node_modules/.bin/tsc -p tsconfig-codecov.json
       - run: docker build -t inttest .
       - run: (cd support/integration-testing && chmod +x triggerIntegrationTests.sh && ./triggerIntegrationTests.sh)
-      - run: nyc report --reporter=text-lcov > coverage.lcov;codecov -t $CODECOV_TOKEN; rm coverage.lcov
+      #- run: nyc report --reporter=text-lcov > coverage.lcov;codecov -t $CODECOV_TOKEN; rm coverage.lcov
       - run: node_modules/.bin/tsc
   deploy:
     docker:
