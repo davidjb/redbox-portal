@@ -32,7 +32,6 @@ jobs:
     docker:
       - image: 'cimg/base:stable'
     steps:
-      - setup_remote_docker
       - attach_workspace:
             at: /home/circleci/project
       - docker/install-docker-compose
@@ -40,7 +39,6 @@ jobs:
   generate-docs:
     machine: true
     steps:
-      - setup_remote_docker
       - attach_workspace:
             at: /home/circleci/project
       - node/install:
