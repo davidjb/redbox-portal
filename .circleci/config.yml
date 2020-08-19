@@ -13,7 +13,6 @@ jobs:
       - run: mkdir -p /tmp/workspace/rbportal && cp -rf * /tmp/workspace/rbportal
       - persist_to_workspace:
         root: /tmp/workspace
-        paths: rbportal
       # - persist_to_workspace:
       #   root: /tmp/workspace
       #   paths:
