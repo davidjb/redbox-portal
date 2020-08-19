@@ -21,7 +21,8 @@ jobs:
       - docker/install-docker-compose
       - attach_workspace:
            at: /home/circleci/project
-      - run: pwd && ls
+      - node/install:
+          node-version: 12.16.0
       - run: node_modules/.bin/tsc -p tsconfig-codecov.json
       - run: (cd support/integration-testing && chmod +x triggerIntegrationTests.sh && ./triggerIntegrationTests.sh)
       - run: node_modules/.bin/tsc
