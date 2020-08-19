@@ -38,7 +38,7 @@ jobs:
 orbs:
   node: circleci/node@4.0.0
   docker: circleci/docker@1.4.0
-version: 2.1
+version: 2
 workflows:
   build_test_and_deploy:
     jobs:
