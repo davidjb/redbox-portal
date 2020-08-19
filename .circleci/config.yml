@@ -27,6 +27,7 @@ jobs:
       - run: node_modules/.bin/tsc -p tsconfig-codecov.json
       - run: docker build -t inttest .
       - run: (cd support/integration-testing && chmod +x triggerIntegrationTests.sh && ./triggerIntegrationTests.sh)
+      - run: nyc report --reporter=text-lcov > coverage.lcov;codecov -t $CODECOV_TOKEN; rm coverage.lcov
       - run: node_modules/.bin/tsc
   deploy:
     docker:
@@ -37,6 +38,17 @@ jobs:
             at: /home/circleci/project
       - docker/install-docker-compose
       - run: (chmod +x dockerhub_deploy.sh && ./dockerhub_deploy.sh)
+generate-docs:
+    docker:
+      - image: 'cimg/base:stable'
+    steps:
+      - setup_remote_docker
+      - attach_workspace:
+            at: /home/circleci/project
+      - node/install:
+          node-version: 12.16.0
+      - docker/install-docker-compose
+      - run: npm run doc-ng2
 orbs:
   node: circleci/node@4.0.0
   docker: circleci/docker@1.4.0
@@ -49,5 +61,8 @@ workflows:
           requires:
             - build
       - deploy:
+          requires:
+            - test
+      - generate-docs:
           requires:
             - test
