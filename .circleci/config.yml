@@ -25,6 +25,7 @@ jobs:
       - node/install:
           node-version: 12.16.0
       - run: node_modules/.bin/tsc -p tsconfig-codecov.json
+      - run: docker build -t inttest .
       - run: (cd support/integration-testing && chmod +x triggerIntegrationTests.sh && ./triggerIntegrationTests.sh)
       - run: node_modules/.bin/tsc
   deploy:
