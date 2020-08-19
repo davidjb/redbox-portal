@@ -22,7 +22,7 @@ jobs:
       - attach_workspace:
            at: /tmp/rbportal
       - run: cd /tmp/rbportal
-      - run: ls
+      - run: pwd && ls
       - run: node_modules/.bin/tsc -p tsconfig-codecov.json
       - run: (cd support/integration-testing && chmod +x triggerIntegrationTests.sh && ./triggerIntegrationTests.sh)
       - run: node_modules/.bin/tsc
