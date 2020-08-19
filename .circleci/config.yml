@@ -38,7 +38,7 @@ jobs:
             at: /home/circleci/project
       - docker/install-docker-compose
       - run: (chmod +x dockerhub_deploy.sh && ./dockerhub_deploy.sh)
-generate-docs:
+  generate-docs:
     docker:
       - image: 'cimg/base:stable'
     steps:
