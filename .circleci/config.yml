@@ -7,7 +7,7 @@ jobs:
       - node/install:
           node-version: 12.16.0
       - docker/install-docker-tools
-      - run: systemctl restart docker
+      - setup_remote_docker
       - run: npm install
       - run: node_modules/.bin/tsc
       - run: (cd angular && npm install)
