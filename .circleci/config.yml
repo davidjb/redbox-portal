@@ -9,7 +9,7 @@ jobs:
       - run: npm install
       - run: node_modules/.bin/tsc
       - run: (cd angular && npm install)
-  #    - run: (chmod +x dev_build/buildNgApps.sh && dev_build/buildNgApps.sh)
+      - run: (chmod +x dev_build/buildNgApps.sh && dev_build/buildNgApps.sh)
       - persist_to_workspace:
           root: .
           paths:
@@ -30,6 +30,7 @@ jobs:
     docker:
       - image: 'cimg/base:stable'
     steps:
+      - setup_remote_docker
       - attach_workspace:
             at: /home/circleci/project
       - docker/install-docker-compose
