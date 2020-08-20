@@ -21,11 +21,11 @@ jobs:
       - attach_workspace:
            at: /home/circleci/project
       - run: export NVM_DIR=/opt/circleci/.nvm && source /opt/circleci/.nvm/nvm.sh && nvm install 12.16.0 && nvm use 12.16.0
-      - run: node_modules/.bin/tsc -p tsconfig-codecov.json
+      - run: export NVM_DIR=/opt/circleci/.nvm && source /opt/circleci/.nvm/nvm.sh && nvm use 12.16.0 && node_modules/.bin/tsc -p tsconfig-codecov.json
       - run: docker build -t inttest .
       - run: (cd support/integration-testing && chmod +x triggerIntegrationTests.sh && ./triggerIntegrationTests.sh)
       #- run: nyc report --reporter=text-lcov > coverage.lcov;codecov -t $CODECOV_TOKEN; rm coverage.lcov
-      - run: node_modules/.bin/tsc
+      - run: export NVM_DIR=/opt/circleci/.nvm && source /opt/circleci/.nvm/nvm.sh && nvm use 12.16.0 && node_modules/.bin/tsc
   deploy:
     docker:
       - image: 'cimg/base:stable'
@@ -41,7 +41,7 @@ jobs:
             at: /home/circleci/project
       - run: export NVM_DIR=/opt/circleci/.nvm && source /opt/circleci/.nvm/nvm.sh && nvm install 12.16.0 && nvm use 12.16.0
       #- docker/install-docker-compose
-      - run: npm run doc-ng2
+      - run: export NVM_DIR=/opt/circleci/.nvm && source /opt/circleci/.nvm/nvm.sh && nvm use 12.16.0 && npm run doc-ng2
 orbs:
   node: circleci/node@4.0.0
   docker: circleci/docker@1.4.0
