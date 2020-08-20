@@ -40,7 +40,6 @@ jobs:
       - attach_workspace:
             at: /home/circleci/project
       - run: export NVM_DIR=/opt/circleci/.nvm && source /opt/circleci/.nvm/nvm.sh && nvm install 12.16.0 && nvm use 12.16.0
-      #- docker/install-docker-compose
       - run: export NVM_DIR=/opt/circleci/.nvm && source /opt/circleci/.nvm/nvm.sh && nvm use 12.16.0 && npm run doc-ng2
 orbs:
   node: circleci/node@4.0.0
