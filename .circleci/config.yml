@@ -38,10 +38,14 @@ jobs:
   generate-docs:
     machine: true
     steps:
+      - add_ssh_keys:
+        fingerprints:
+          - "50:0c:a1:7f:b6:64:84:42:01:61:0f:76:3f:e4:78:ff"
       - attach_workspace:
             at: /home/circleci/project
       - run: export NVM_DIR=/opt/circleci/.nvm && source /opt/circleci/.nvm/nvm.sh && nvm install 12.16.0 && nvm use 12.16.0
       - run: export NVM_DIR=/opt/circleci/.nvm && source /opt/circleci/.nvm/nvm.sh && nvm use 12.16.0 && npm run doc-ng2
+      - run: export NVM_DIR=/opt/circleci/.nvm && source /opt/circleci/.nvm/nvm.sh && nvm use 12.16.0 && npm install -g --silent gh-pages@2.0.1 && git config user.email "ci-build@redboxresearchdata.com.au" && git config user.name "ci-build" && gh-pages --dotfiles --message "Updating documents? --dist support/docs/generated/ng2`
 orbs:
   node: circleci/node@4.0.0
   docker: circleci/docker@1.4.0
