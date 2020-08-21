@@ -29,6 +29,8 @@ jobs:
     docker:
       - image: 'cimg/base:stable'
     steps:
+      - node/install:
+        node-version: 12.16.0
       - setup_remote_docker
       - attach_workspace:
             at: /home/circleci/project
