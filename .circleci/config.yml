@@ -36,6 +36,7 @@ jobs:
       - run: (chmod +x dockerhub_deploy.sh && ./dockerhub_deploy.sh)
       - run:
           command: |
+            npm pack
             PACKAGE_VERSION=$(cat package.json \
             | grep version \
             | head -1 \
