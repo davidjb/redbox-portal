@@ -390,7 +390,7 @@ export module Controllers {
             res.set('Content-Disposition', `attachment; filename="${fileName}"`);
             sails.log.info(`Returning datastream observable of ${oid}: ${fileName}, datastreamId: ${datastreamId}`);
             let datastreamServiceName = sails.config.record.datastreamService;
-            if(datastreamServiceName == undefined) {
+            if(_.isEmpty(datastreamServiceName)) {
               datastreamServiceName = "recordsservice";
             }
             let datastreamService = sails.services[datastreamServiceName];
@@ -413,7 +413,7 @@ export module Controllers {
       const self = this;
       req.file('attachmentFields').upload({
         dirname: `${sails.config.record.attachments.stageDir}`,
-        maxBytes: 104857600,
+        maxBytes: sails.config.record.maxUploadSize,
         saveAs: function (__newFileStream, next) {
           sails.log.verbose('Generating files....');
           try {
@@ -441,7 +441,7 @@ export module Controllers {
         const defaultErrorMessage = 'Error sending datastreams upstream.';
         try {
           let datastreamServiceName = sails.config.record.datastreamService;
-          if(datastreamServiceName == undefined) {
+          if(_.isEmpty(datastreamServiceName)) {
             datastreamServiceName = "recordsservice";
           }
           let datastreamService = sails.services[datastreamServiceName];
