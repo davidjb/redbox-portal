@@ -29,6 +29,12 @@ module.exports = function(grunt) {
       cwd: './assets',
       src: ['**/*.!(coffee|less|scss|sass)'],
       dest: '.tmp/public'
+    },
+    {
+      expand: true,
+      cwd: './node_modules/@fortawesome/fontawesome-free/webfonts',
+      src: ['*'],
+      dest: '.tmp/public/default/default/webfonts'
     }
   ];
   var apiFilesConfig = [

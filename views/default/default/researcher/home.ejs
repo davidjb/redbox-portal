@@ -4,14 +4,14 @@
   </div>
 <div class="row equal">
     <div class="col-md-3 homepanel">
-      <div class="panel panel-default">
-         <div class="panel-heading text-center">
+      <div class="card">
+         <div class="card-heading text-center">
              <span class="panel-title">
                <div><img class="overlay" src="<%= BrandingService.getBrandAndPortalPath(req) %>/images/checklist.png" alt="@document.icon" width="43px" height="30px"></div>
                <%= TranslationService.t('menu-plan')%>
              </span>
          </div>
-         <div class="panel-body">
+         <div class="card-body">
            <div><a href="<%= BrandingService.getBrandAndPortalPath(req) %>/record/rdmp/edit"><%= TranslationService.t('create-rdmp')%></a></div>
            <div><a href="<%= BrandingService.getBrandAndPortalPath(req) %>/dashboard/rdmp"><%= TranslationService.t('edit-dashboard-rdmp')%></a></div>
              <% if (TranslationService.t('get-advice-link') != "get-advice-link") {
@@ -24,12 +24,12 @@
       </div>
     </div>
     <div class="col-md-3 homepanel">
-      <div class="panel panel-default">
-        <div class="panel-heading text-center">
+      <div class="card">
+        <div class="card-header text-center">
           <div><i class="fa fa-sitemap fa-3x"></i></div>
           <span class="panel-title"><%= TranslationService.t('menu-organise-worspace')%></span>
         </div>
-        <div class="panel-body">
+        <div class="card-body">
           <div><a href="<%= BrandingService.getBrandAndPortalPath(req) %>/workspaces/list"><%= TranslationService.t('workspaces-dashboard')%></a></div>
             <% if (TranslationService.t('workspace-services-list-link') != "workspace-services-list-link") {
             %>
@@ -41,24 +41,24 @@
       </div>
     </div>
     <div class="col-md-3 homepanel">
-      <div class="panel panel-default">
-        <div class="panel-heading text-center">
+      <div class="card panel-default">
+        <div class="card-heading text-center">
             <div><i class="fa fa-laptop fa-3x"></i></div>
             <span class="panel-title"><%= TranslationService.t('menu-manage')%></span>
         </div>
-        <div class="panel-body">
+        <div class="card-body">
           <div><a href="<%= BrandingService.getBrandAndPortalPath(req) %>/record/dataRecord/edit"><%= TranslationService.t('create-datarecord')%></a></div>
           <div><a href="<%= BrandingService.getBrandAndPortalPath(req) %>/dashboard/dataRecord"><%= TranslationService.t('edit-dashboard-datarecord')%></a></div>
         </div>
        </div>
     </div>
     <div class="col-md-3 homepanel">
-      <div class="panel panel-default">
-        <div class="panel-heading text-center">
+      <div class="card panel-default">
+        <div class="card-heading text-center">
             <div><i class="fa fa-rocket fa-3x"></i></div>
             <span class="panel-title"><%= TranslationService.t('menu-publish')%></span>
         </div>
-        <div class="panel-body">
+        <div class="card-body">
           <div><a href="<%= BrandingService.getBrandAndPortalPath(req) %>/record/dataPublication/edit"><%= TranslationService.t('create-data-publication')%></a></div>
           <div><a href="<%= BrandingService.getBrandAndPortalPath(req) %>/dashboard/dataPublication"><%= TranslationService.t('edit-dashboard-publication')%></a></div>
         </div>
