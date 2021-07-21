@@ -112,7 +112,7 @@ workflows:
             - test
           filters:
             branches:
-              only: 'master'
+              only: 'debug'
   build_bcryptjs_test_gendocs_and_deploy:
     jobs:
       - build-bcryptjs
